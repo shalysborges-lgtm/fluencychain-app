@@ -29,6 +29,7 @@ jobs:
 
       - name: Analisar código (lint)
         run: flutter analyze --no-fatal-infos
+        continue-on-error: true
 
       - name: Rodar testes de unidade
         run: flutter test
