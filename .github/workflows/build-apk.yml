@@ -24,6 +24,9 @@ jobs:
       - name: Gerar scaffolding nativo (android/, ios/) se ainda não existir
         run: flutter create --platforms=android --org com.fluencychain --project-name fluencychain_app .
 
+      - name: Remover arquivo de teste padrão gerado automaticamente
+        run: rm -f test/widget_test.dart
+
       - name: Analisar código (lint)
         run: flutter analyze --no-fatal-infos
 
