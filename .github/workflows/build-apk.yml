@@ -3,16 +3,11 @@ name: Build Android APK
 on:
   push:
     branches: [main]
-    paths:
-      - 'app/**'
   workflow_dispatch: {}
 
 jobs:
   build-apk:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
 
     steps:
       - uses: actions/checkout@v4
@@ -42,5 +37,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fluencychain-release-apk
-          path: app/build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
