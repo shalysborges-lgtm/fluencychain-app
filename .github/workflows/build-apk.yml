@@ -1,0 +1,46 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+  workflow_dispatch: {}
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+          cache: true
+
+      - name: Instalar dependências
+        run: flutter pub get
+
+      - name: Gerar scaffolding nativo (android/, ios/) se ainda não existir
+        run: flutter create --platforms=android --org com.fluencychain .
+
+      - name: Analisar código (lint)
+        run: flutter analyze --no-fatal-infos
+
+      - name: Rodar testes de unidade
+        run: flutter test
+
+      - name: Compilar APK (release, não assinado)
+        run: flutter build apk --release
+
+      - name: Publicar o APK como artefato do workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: fluencychain-release-apk
+          path: app/build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
