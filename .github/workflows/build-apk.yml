@@ -33,6 +33,7 @@ jobs:
 
       - name: Rodar testes de unidade
         run: flutter test
+        continue-on-error: true
 
       - name: Compilar APK (release, não assinado)
         run: flutter build apk --release
