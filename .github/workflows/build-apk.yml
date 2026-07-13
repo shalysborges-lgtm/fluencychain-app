@@ -22,7 +22,7 @@ jobs:
         run: flutter pub get
 
       - name: Gerar scaffolding nativo (android/, ios/) se ainda não existir
-        run: flutter create --platforms=android --org com.fluencychain .
+        run: flutter create --platforms=android --org com.fluencychain --project-name fluencychain_app .
 
       - name: Analisar código (lint)
         run: flutter analyze --no-fatal-infos
